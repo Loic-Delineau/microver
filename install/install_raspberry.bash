@@ -33,6 +33,7 @@ sudo apt install htop -y
 sudo apt install neofetch -y
 sudo apt install git -y
 sudo apt install build-essential -y
+sudo apt install python3-gpiozero -y
 
 
 # ====================================================================================
