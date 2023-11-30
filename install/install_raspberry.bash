@@ -3,6 +3,24 @@
 # ====================================================================================
 # 			   Initial Package Update & Upgrade
 # ====================================================================================
+
+echo ""
+echo "Starting the Raspberry Pi 3B+ ROS2 Humble install script"
+echo ""
+echo "This script is for a Ubuntu 22.04.XX server (no GUI) version"
+echo "This script should take between 15 and 30 minutes to finish"
+
+# Wait to let user read
+echo ""
+sleep 2
+echo "."
+sleep 2
+echo "."
+sleep 2
+echo "."
+sleep 2
+echo ""
+
 sudo apt-get update && sudo apt-get upgrade -y
 
 
@@ -32,7 +50,7 @@ locale  # verify settings
 
 # Adding sources
 sudo apt install software-properties-common -y
-sudo add-apt-repository universe
+sudo add-apt-repository universe -y
 
 # Adding ROS2 GPG key
 sudo apt update && sudo apt install curl -y
@@ -44,8 +62,8 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-a
 # Installing ROS
 sudo apt update && sudo apt upgrade -y
 
-sudo apt install ros-humble-ros-base #CLI version of ROS
-sudo apt install ros-dev-tools
+sudo apt install ros-humble-ros-base -y #CLI version of ROS
+sudo apt install ros-dev-tools -y
 
 
 # Sourcing ROS & adding it to bashrc
@@ -63,6 +81,15 @@ sleep 2
 
 echo ""
 echo "Install script is done"
+
+# This doesn't work as we didn't install ros-desktop
+#echo ""
+#echo "You can try to launch a publisher & subscriber with:"
+#echo "source /opt/ros/humble/setup.bash"
+#echo "then:"
+#echo "ros2 run demo_nodes_cpp talker"
+#echo "ros2 run demo_nodes_py listener"
+
 echo ""
 echo "Made,"
 echo "with Love,"
