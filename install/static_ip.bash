@@ -24,11 +24,11 @@ sudo rm -f /etc/dhcpcd.conf #-f flag to not give error if file doesn't exist
 sudo touch /etc/dhcpcd.conf
 
 # Adding everything to it
-echo "#Configuration of static IP Address - Made, with Love, by Loic" >> /etc/dhcpcd.conf
-echo "interface wlan0" >> /etc/dhcpcd.conf
-echo "static ip_address=192.168.174.169/24" >> /etc/dhcpcd.conf
-echo "static routers=192.168.174.2" >> /etc/dhcpcd.conf
-echo "static domain_name_servers=192.168.174.2" >> /etc/dhcpcd.conf
+echo "#Configuration of static IP Address - Made, with Love, by Loic" | sudo tee -a /etc/dhcpcd.conf
+echo "interface wlan0" | sudo tee -a /etc/dhcpcd.conf
+echo "static ip_address=192.168.174.169/24" | sudo tee -a /etc/dhcpcd.conf
+echo "static routers=192.168.174.2" | sudo tee -a /etc/dhcpcd.conf
+echo "static domain_name_servers=192.168.174.2" | sudo tee -a /etc/dhcpcd.conf
 
 echo ""
 echo "Script has sucessfully generated dhcpcd.conf in the /etc directory"
