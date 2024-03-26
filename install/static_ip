@@ -65,19 +65,13 @@ echo "static domain_name_servers="$ip_dns"" | sudo tee -a "$path"
 
 echo ""
 echo "Script has sucessfully generated dhcpcd.conf in the /etc directory"
-echo "Your new static IP address is:"
-echo "$ip_final"
-sleep 1
 echo ""
-echo "We will now need to reboot to apply configuration (hit CTRL-C quickly to stop it)"
+echo "$(tput setaf 1)Your new static IP address is:"
+echo "$ip_final"
+echo "$(tput setaf 7)"
 sleep 1
-echo "."
-sleep 1
-echo "."
-sleep 1
-echo "."
-sleep 1
-echo "."
-sleep 1
+echo "We will now need to reboot to apply configuration, enter y to confirm"
+
+read trash
 sudo reboot
 
