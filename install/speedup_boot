@@ -1,0 +1,6 @@
+#!/bin/bash
+touch /etc/systemd/system/networking.service.d/reduce-timeout.conf
+
+echo "[Service]" | sudo tee -a /etc/systemd/system/networking.service.d/reduce-timeout.conf
+echo "TimeoutStartSec=1" | sudo tee -a /etc/systemd/system/networking.service.d/reduce-timeout.conf
+
