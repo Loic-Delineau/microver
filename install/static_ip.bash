@@ -12,38 +12,57 @@ sudo systemctl enable dhcpcd
 
 echo ""
 sudo service dhcpcd status # Should return active
+echo "."
+sleep 1
+echo "."
+sleep 1
+echo "."
+sleep 1
 
-# Third we generate the config file for the dhcpcd daemon ----------------------------
-echo "Now generating the network config file for your Raspberry Pi 3B+"
-echo "Find it here:	/etc/dhcpcd.conf"
+# Third, we find the parameters of the user -----------------------------------------
+# Variables
+path="./dhcpcd.conf"
+ip_device="`hostname -I`"
+ip_router="`ip r | awk 'NR==1{print $3 }'`"
+ip_dns="`grep "nameserver" /etc/resolv.conf | awk '{ print $2 }'`"
 
-# Creating the config file
-sudo rm -f /etc/dhcpcd.conf #-f flag to not give error if file doesn't exist
-sudo touch /etc/dhcpcd.conf
+# Making the file
+sudo rm -rf "$path"
+sudo touch "$path"
 
+# Asking user what IP they want
+echo ""
+echo "Your IP address is currently: "$ip_device""
+echo "Please specify the last three digits of the IP you would like, they must be between 0 and 255!"
 
-# Fourth, we find the parameters of the user -----------------------------------------
-echo "Please enter what number you would like to use for the last part of your IP Address"
-read ip_last < /dev/tty # Read from current terminal (tty)
-echo "You have entered : "$ip_last""
+ip_new=""
+read ip_new
 
-# Keyboard input checking
-if [[ "$dir" == "z" ]]; then
+if [[ "$ip_new" > "255" ]]; then
+	echo "The IP you entered is bigger than 255 (or not a number), program will exit"
+	exit
+fi
 
+# IP math
+ip_final="`hostname -I | cut -d. -f1-3`."$ip_new""
+echo "Your final IP will be: "$ip_final""
 
-echo "#Configuration of static IP Address - Made, with Love, by Loic" | sudo tee -a /etc/dhcpcd.conf
-echo "interface wlan0" | sudo tee -a /etc/dhcpcd.conf
-echo "static ip_address=192.168.174.169/24" | sudo tee -a /etc/dhcpcd.conf
-echo "static routers=192.168.174.2" | sudo tee -a /etc/dhcpcd.conf
-echo "static domain_name_servers=192.168.174.2" | sudo tee -a /etc/dhcpcd.conf
+# Fourth, we add all of this info to the config file of the user
+echo "#Configuration of static IP Address - Made, with Love, by Loic" | sudo tee -a "$path"
+echo "interface wlan0" | sudo tee -a "$path"
+echo "static ip_address="$ip_final"" | sudo tee -a "$path"
+echo "static routers="$ip_router"" | sudo tee -a "$path"
+echo "static domain_name_servers="$ip_dns"" | sudo tee -a "$path"
 
 echo ""
 echo "Script has sucessfully generated dhcpcd.conf in the /etc directory"
 echo "Your new static IP address is:"
-echo "192.168.174.169"
+echo "$ip_final"
 sleep 1
 echo ""
-echo "We will now need to reboot to apply configuration"
+echo "We will now need to reboot to apply configuration (hit CTRL-C quickly to stop it)"
+sleep 1
+echo "."
 sleep 1
 echo "."
 sleep 1
