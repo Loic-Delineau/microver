@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # First we uninstall dhcpcd and the config file for caution --------------------------
-sudo apt remove dhcpcd5 -y
-sudo rm -f /etc/dhcpcd.conf 
+#sudo apt remove dhcpcd5 -y
+#sudo rm -f /etc/dhcpcd.conf 
 
 # Second we install and start the DHCPCD daemon --------------------------------------
 sudo apt install dhcpcd5 -y
@@ -21,14 +21,14 @@ sleep 1
 
 # Third, we find the parameters of the user -----------------------------------------
 # Variables
-path="./dhcpcd.conf"
+path="/etc/dhcpcd.conf"
 ip_device="`hostname -I`"
 ip_router="`ip r | awk 'NR==1{print $3 }'`"
 ip_dns="`grep "nameserver" /etc/resolv.conf | awk '{ print $2 }'`"
 
 # Making the file
-sudo rm -rf "$path"
-sudo touch "$path"
+#sudo rm -rf "$path"
+#sudo touch "$path"
 
 # Asking user what IP they want
 echo ""
