@@ -4,9 +4,9 @@
 # /etc/systemd/system/networking.service.d/reduce-timeout.conf
 
 cd /etc/systemd/system
-mkdir networking.service.d
+sudo mkdir networking.service.d
 cd ./networking.service.d
-touch /reduce-timeout.conf
+sudo touch /reduce-timeout.conf
 
 echo "[Service]" | sudo tee -a reduce-timeout.conf
 echo "TimeoutStartSec=1" | sudo tee -a reduce-timeout.conf
