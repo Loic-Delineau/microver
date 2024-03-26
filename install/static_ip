@@ -59,7 +59,7 @@ echo "Your final IP will be: "$ip_final""
 # Fourth, we add all of this info to the config file of the user
 echo "#Configuration of static IP Address - Made, with Love, by Loic" | sudo tee -a "$path"
 echo "interface wlan0" | sudo tee -a "$path"
-echo "static ip_address="$ip_final"" | sudo tee -a "$path"
+echo "static ip_address="$ip_final"/24" | sudo tee -a "$path"
 echo "static routers="$ip_router"" | sudo tee -a "$path"
 echo "static domain_name_servers="$ip_dns"" | sudo tee -a "$path"
 
