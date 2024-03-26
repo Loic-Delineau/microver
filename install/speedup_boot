@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# First disabling this shit
+sudo systemctl disable systemd-networkd.service
+
+# Then adding another timeout incase
 # Installing it all here:
 # /etc/systemd/system/networking.service.d/reduce-timeout.conf
 
