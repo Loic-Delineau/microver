@@ -1,5 +1,26 @@
 #!/bin/bash
 
+# Global variables
+path="/etc/dhcpcd.conf"
+ip_device="`hostname -I`"
+ip_router="`ip r | awk 'NR==1{print $3 }'`"
+ip_dns="`grep "nameserver" /etc/resolv.conf | awk '{ print $2 }'`"
+
+# Before starting, we ask the user what IP they want
+echo ""
+echo "Your IP address is currently: "$ip_device""
+echo "Please specify the last three digits of the IP you would like, they must be between 0 and 255!"
+
+ip_new=""
+read ip_new
+
+echo ""
+echo "Make sure "$ip_new" really is between 0 and 255, no further checks will happen"
+echo "If no IP address was displayed 5 lines above, your Raspberry Pi 3B+ must not be connected to your phone hotspot!"
+echo "Kill the script with CTRL-C and connect everything before trying again"
+echo "Enter y to confirm everything above"
+read trash
+
 # First we uninstall dhcpcd and the config file for caution --------------------------
 #sudo apt remove dhcpcd5 -y
 #sudo rm -f /etc/dhcpcd.conf 
@@ -20,28 +41,16 @@ echo "."
 sleep 1
 
 # Third, we find the parameters of the user -----------------------------------------
-# Variables
-path="/etc/dhcpcd.conf"
-ip_device="`hostname -I`"
-ip_router="`ip r | awk 'NR==1{print $3 }'`"
-ip_dns="`grep "nameserver" /etc/resolv.conf | awk '{ print $2 }'`"
 
 # Making the file
 #sudo rm -rf "$path"
 #sudo touch "$path"
 
-# Asking user what IP they want
-echo ""
-echo "Your IP address is currently: "$ip_device""
-echo "Please specify the last three digits of the IP you would like, they must be between 0 and 255!"
 
-ip_new=""
-read ip_new
-
-if [[ "$ip_new" > "255" ]]; then
-	echo "The IP you entered is bigger than 255 (or not a number), program will exit"
-	exit
-fi
+#if [[ "$ip_new" > "255" ]]; then
+#	echo "The IP you entered is bigger than 255 (or not a number), program will exit"
+#	exit
+#fi
 
 # IP math
 ip_final="`hostname -I | cut -d. -f1-3`."$ip_new""
