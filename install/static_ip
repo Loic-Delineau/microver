@@ -23,7 +23,7 @@ read trash
 
 # First we uninstall dhcpcd and the config file for caution --------------------------
 #sudo apt remove dhcpcd5 -y
-#sudo rm -f /etc/dhcpcd.conf 
+sudo rm -f /etc/dhcpcd.conf 
 
 # Second we install and start the DHCPCD daemon --------------------------------------
 sudo apt install dhcpcd5 -y
