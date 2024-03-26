@@ -7,8 +7,6 @@ sudo rm -f /etc/dhcpcd.conf
 # Second we install and start the DHCPCD daemon --------------------------------------
 sudo apt install dhcpcd5 -y
 
-sudo service dhcpcd status # Should return not working
-
 sudo service dhcpcd start
 sudo systemctl enable dhcpcd
 
@@ -23,7 +21,16 @@ echo "Find it here:	/etc/dhcpcd.conf"
 sudo rm -f /etc/dhcpcd.conf #-f flag to not give error if file doesn't exist
 sudo touch /etc/dhcpcd.conf
 
-# Adding everything to it
+
+# Fourth, we find the parameters of the user -----------------------------------------
+echo "Please enter what number you would like to use for the last part of your IP Address"
+read ip_last < /dev/tty # Read from current terminal (tty)
+echo "You have entered : "$ip_last""
+
+# Keyboard input checking
+if [[ "$dir" == "z" ]]; then
+
+
 echo "#Configuration of static IP Address - Made, with Love, by Loic" | sudo tee -a /etc/dhcpcd.conf
 echo "interface wlan0" | sudo tee -a /etc/dhcpcd.conf
 echo "static ip_address=192.168.174.169/24" | sudo tee -a /etc/dhcpcd.conf
