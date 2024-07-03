@@ -34,6 +34,10 @@ sudo dmesg
 # (replace js0 with event name of device) 
 sudo jstest /dev/input/js0
 
+# Calibrate your joystick using jscal
+# (replace js0 with event name of device) 
+sudo jscal -c /dev/input/js0
+
 # Configure your joystick using jstest-gtk GUI application
 jstest-gtk
 

@@ -38,7 +38,7 @@ void display(struct js_event e);
 int main(int argc, const char *argv[])
 {
 	// Print number of arguments 
-	printf("argc = %i\n",argc);
+//	printf("argc = %i\n",argc);
 
 	// Print strings passed as arguments to program
 	int tmp = argc;
@@ -46,7 +46,7 @@ int main(int argc, const char *argv[])
 	while (tmp >= 1)
 	{
 		tmp -= 1;
-		printf("argv[%i] = %s \n",i,argv[i]);
+//		printf("argv[%i] = %s \n",i,argv[i]);
 		++i;
 	}
 	
@@ -58,6 +58,8 @@ int main(int argc, const char *argv[])
 
 	while (1) {
 		read (fd, &e, sizeof(e));
+		
+		if (e.number == 1)
 		display (e);	
 	};
 
